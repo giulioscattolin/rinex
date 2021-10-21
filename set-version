@@ -1,0 +1,6 @@
+#!/bin/sh
+version=$1
+doubleHypenedVersion=$(echo "${version}" | sed -e 's/-/--/')
+sed -i "s/version = .*/version = '$version'/" build.gradle
+sed -i "s/.*com.github.giulioscattolin:rinex.*/    implementation 'com.github.giulioscattolin:rinex:$version'/" README.md
+sed -i "s/.*Javadoc badge.*/[![Javadoc badge](https:\/\/img.shields.io\/badge\/Javadoc-$doubleHypenedVersion-brightgreen)](https:\/\/javadoc.jitpack.io\/com\/github\/giulioscattolin\/rinex\/$version\/javadoc\/)/" README.md
