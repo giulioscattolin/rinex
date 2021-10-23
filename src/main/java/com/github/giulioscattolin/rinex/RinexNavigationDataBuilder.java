@@ -1,11 +1,11 @@
 package com.github.giulioscattolin.rinex;
 
-interface RinexNavigationMessageBuilder {
+interface RinexNavigationDataBuilder {
     void setParameter(int index, int value);
 
     void setParameter(int index, double value);
 
-    RinexData build();
+    RinexRecord build();
 
     boolean isReady();
 }

@@ -5,21 +5,26 @@ import java.util.function.Supplier;
 
 import static java.lang.Double.isNaN;
 
-public class RinexDataLineReader {
-    private final RinexDataCollector itsCollector;
-    RinexNavigationMessageBuilder itsNavigationMessageBuilder;
-    private LineReader itsReader = new VersionTypeReader();
-    private Supplier<LineReader> itsDataReaderSupplier;
+public class RinexFileParser {
+    private final RinexFileCollector itsFileCollector;
+    private LineReader itsLineReader = new VersionType();
+    private Supplier<LineReader> itsLineReaderSupplier;
+    RinexNavigationDataBuilder itsNavigationMessageBuilder;
+    private MutableRinexFile itsMutableRinexFile = new MutableRinexFile();
 
-    public RinexDataLineReader(RinexDataCollector collector) {
-        this.itsCollector = collector;
+    public RinexFileParser(RinexFileCollector fileCollector) {
+        itsFileCollector = fileCollector;
     }
 
     public void readLine(String line) {
-        itsReader.readLine(line);
+        itsLineReader.readLine(line);
     }
 
-    class VersionTypeReader extends LineReader {
+    public void flush() {
+        itsFileCollector.collect(itsMutableRinexFile);
+    }
+
+    class VersionType extends LineReader {
         protected void execute() {
             if (isHeader("RINEX VERSION / TYPE"))
                 parseLine();
@@ -33,23 +38,23 @@ public class RinexDataLineReader {
                 case "2":
                     switch (fileType) {
                         case 'N':
-                            itsReader = new HeaderReader();
-                            itsDataReaderSupplier = () ->
+                            itsLineReader = new NavigationHeader();
+                            itsLineReaderSupplier = () ->
                                 new SvEpochSvClk(
                                     new SvEpochSvClkReaderV2('G'),
-                                    (ignored) -> new RinexGpsNavigationMessageBuilderV2(),
-                                    () -> new BroadcastOrbitReader(new BroadcastOrbitParameterReaderV2()));
+                                    (ignored) -> new RinexGpsNavigationDataBuilderV2(),
+                                    () -> new BroadcastOrbit(new BroadcastOrbitParameterReaderV2()));
                             return;
                     }
                 case "2.10":
                     switch (fileType) {
                         case 'N':
-                            itsReader = new HeaderReader();
-                            itsDataReaderSupplier = () ->
+                            itsLineReader = new NavigationHeader();
+                            itsLineReaderSupplier = () ->
                                 new SvEpochSvClk(
                                     new SvEpochSvClkReaderV2('G'),
-                                    (ignored) -> new RinexGpsNavigationMessageBuilderV210(),
-                                    () -> new BroadcastOrbitReader(new BroadcastOrbitParameterReaderV2()));
+                                    (ignored) -> new RinexGpsNavigationDataBuilderV210(),
+                                    () -> new BroadcastOrbit(new BroadcastOrbitParameterReaderV2()));
                             return;
                     }
                 case "3.02":
@@ -59,12 +64,12 @@ public class RinexDataLineReader {
                         case 'N':
                             switch (satelliteSystem) {
                                 case 'G':
-                                    itsReader = new HeaderReader();
-                                    itsDataReaderSupplier = () ->
+                                    itsLineReader = new NavigationHeader();
+                                    itsLineReaderSupplier = () ->
                                         new SvEpochSvClk(
                                             new SvEpochSvClkReaderV3(),
-                                            (ignored) -> new RinexGpsNavigationMessageBuilderV302(),
-                                            () -> new BroadcastOrbitReader(new BroadcastOrbitParameterReaderV3()));
+                                            (ignored) -> new RinexGpsNavigationDataBuilderV302(),
+                                            () -> new BroadcastOrbit(new BroadcastOrbitParameterReaderV3()));
                                     return;
                             }
                     }
@@ -72,7 +77,7 @@ public class RinexDataLineReader {
         }
     }
 
-    class HeaderReader extends LineReader {
+    class NavigationHeader extends LineReader {
         protected void execute() {
             if (!findPgmRunByDate())
                 findEndOfHeader();
@@ -84,24 +89,24 @@ public class RinexDataLineReader {
 
         private void findEndOfHeader() {
             if (isHeaderLabelEqualTo("END OF HEADER"))
-                itsReader = itsDataReaderSupplier.get();
+                itsLineReader = itsLineReaderSupplier.get();
         }
     }
 
     class SvEpochSvClk extends LineReader {
         private final SvEpochSvClkReader itsSvEpochSvClkReader;
-        private final Function<Character, RinexNavigationMessageBuilder> itsNavigationMessageBuilderSupplier;
-        private final Supplier<LineReader> itsBroadcastOrbitCompilerSupplier;
+        private final Function<Character, RinexNavigationDataBuilder> itsNavigationMessageBuilderSupplier;
+        private final Supplier<LineReader> itsBroadcastOrbitReaderSupplier;
 
-        SvEpochSvClk(SvEpochSvClkReader svEpochSvClkReader, Function<Character, RinexNavigationMessageBuilder> navigationMessageBuilderSupplier, Supplier<LineReader> broadcastOrbitCompilerSupplier) {
+        SvEpochSvClk(SvEpochSvClkReader svEpochSvClkReader, Function<Character, RinexNavigationDataBuilder> navigationMessageBuilderSupplier, Supplier<LineReader> broadcastOrbitCompilerSupplier) {
             itsSvEpochSvClkReader = svEpochSvClkReader;
             itsNavigationMessageBuilderSupplier = navigationMessageBuilderSupplier;
-            itsBroadcastOrbitCompilerSupplier = broadcastOrbitCompilerSupplier;
+            itsBroadcastOrbitReaderSupplier = broadcastOrbitCompilerSupplier;
         }
 
         protected void execute() {
             if (isHeader("RINEX VERSION / TYPE")) {
-                itsReader = new VersionTypeReader();
+                new VersionType().readLine(itsLine);
                 return;
             }
             whichSatelliteSystem();
@@ -110,7 +115,7 @@ public class RinexDataLineReader {
         private void whichSatelliteSystem() {
             char satelliteSystem = itsSvEpochSvClkReader.getSatelliteSystem(itsLine);
             itsNavigationMessageBuilder = itsNavigationMessageBuilderSupplier.apply(satelliteSystem);
-            itsReader = itsBroadcastOrbitCompilerSupplier.get();
+            itsLineReader = itsBroadcastOrbitReaderSupplier.get();
             findPrn();
         }
 
@@ -152,12 +157,12 @@ public class RinexDataLineReader {
         }
     }
 
-    private class BroadcastOrbitReader extends LineReader {
+    private class BroadcastOrbit extends LineReader {
         private final BroadcastOrbitParameterReader itsParameterReader;
         private int itsIndex = 10;
         private boolean shouldContinue = true;
 
-        private BroadcastOrbitReader(BroadcastOrbitParameterReader parameterReader) {
+        private BroadcastOrbit(BroadcastOrbitParameterReader parameterReader) {
             itsParameterReader = parameterReader;
         }
 
@@ -177,15 +182,15 @@ public class RinexDataLineReader {
 
         private void collectIfBuilderIsReady() {
             if (itsNavigationMessageBuilder.isReady()) {
-                itsCollector.collect(itsNavigationMessageBuilder.build());
-                itsReader = itsDataReaderSupplier.get();
+                itsMutableRinexFile.addRecord(itsNavigationMessageBuilder.build());
+                itsLineReader = itsLineReaderSupplier.get();
                 shouldContinue = false;
             }
         }
 
         private void tellIfShouldContinue(double value) {
             if (isNaN(value)) {
-                itsReader = itsDataReaderSupplier.get();
+                itsLineReader = itsLineReaderSupplier.get();
                 shouldContinue = false;
             }
         }

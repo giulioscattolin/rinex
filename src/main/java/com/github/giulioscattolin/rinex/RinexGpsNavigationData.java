@@ -2,8 +2,8 @@ package com.github.giulioscattolin.rinex;
 
 import java.time.LocalDateTime;
 
-public abstract class RinexGpsNavigationMessage implements RinexData {
-    public void accept(RinexDataVisitor visitor) {
+public abstract class RinexGpsNavigationData implements RinexRecord {
+    public void accept(RinexRecordVisitor visitor) {
         visitor.visit(this);
     }
 

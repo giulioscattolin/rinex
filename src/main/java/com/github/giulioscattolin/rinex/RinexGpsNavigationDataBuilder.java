@@ -2,8 +2,8 @@ package com.github.giulioscattolin.rinex;
 
 import java.time.LocalDateTime;
 
-abstract class RinexGpsNavigationMessageBuilder implements RinexNavigationMessageBuilder {
-    private final MutableRinexGpsNavigationMessage itsNavigationMessage = new MutableRinexGpsNavigationMessage();
+abstract class RinexGpsNavigationDataBuilder implements RinexNavigationDataBuilder {
+    private final MutableRinexGpsNavigationDataBuilder itsSatelliteNavigationData = new MutableRinexGpsNavigationDataBuilder();
     private int itsTocYear;
     private int itsTocMonth;
     private int itsTocDay;
@@ -15,7 +15,7 @@ abstract class RinexGpsNavigationMessageBuilder implements RinexNavigationMessag
     public void setParameter(int index, int value) {
         switch (index) {
             case 0:
-                itsNavigationMessage.setPrn(value);
+                itsSatelliteNavigationData.setPrn(value);
                 return;
             case 1:
                 itsTocYear = value;
@@ -40,7 +40,7 @@ abstract class RinexGpsNavigationMessageBuilder implements RinexNavigationMessag
 
     private void buildToc() {
         LocalDateTime toc = LocalDateTime.of(itsTocYear, itsTocMonth, itsTocDay, itsTocHour, itsTocMinute, itsTocSecond);
-        itsNavigationMessage.setToc(toc);
+        itsSatelliteNavigationData.setToc(toc);
     }
 
     public void setParameter(int index, double value) {
@@ -48,91 +48,91 @@ abstract class RinexGpsNavigationMessageBuilder implements RinexNavigationMessag
             itsReadyFlag = true;
         switch (index) {
             case 10:
-                itsNavigationMessage.setIode((int) value);
+                itsSatelliteNavigationData.setIode((int) value);
                 return;
             case 18:
-                itsNavigationMessage.setToe((int) value);
+                itsSatelliteNavigationData.setToe((int) value);
                 return;
             case 7:
-                itsNavigationMessage.setSvClockBias(value);
+                itsSatelliteNavigationData.setSvClockBias(value);
                 return;
             case 8:
-                itsNavigationMessage.setSvClockDrift(value);
+                itsSatelliteNavigationData.setSvClockDrift(value);
                 return;
             case 9:
-                itsNavigationMessage.setSvClockDriftRate(value);
+                itsSatelliteNavigationData.setSvClockDriftRate(value);
                 return;
             case 11:
-                itsNavigationMessage.setCrs(value);
+                itsSatelliteNavigationData.setCrs(value);
                 return;
             case 12:
-                itsNavigationMessage.setDeltaN(value);
+                itsSatelliteNavigationData.setDeltaN(value);
                 return;
             case 13:
-                itsNavigationMessage.setM0(value);
+                itsSatelliteNavigationData.setM0(value);
                 return;
             case 14:
-                itsNavigationMessage.setCuc(value);
+                itsSatelliteNavigationData.setCuc(value);
                 return;
             case 15:
-                itsNavigationMessage.setE(value);
+                itsSatelliteNavigationData.setE(value);
                 return;
             case 16:
-                itsNavigationMessage.setCus(value);
+                itsSatelliteNavigationData.setCus(value);
                 return;
             case 17:
-                itsNavigationMessage.setSqrtA(value);
+                itsSatelliteNavigationData.setSqrtA(value);
                 return;
             case 19:
-                itsNavigationMessage.setCic(value);
+                itsSatelliteNavigationData.setCic(value);
                 return;
             case 20:
-                itsNavigationMessage.setBigOmega(value);
+                itsSatelliteNavigationData.setBigOmega(value);
                 return;
             case 21:
-                itsNavigationMessage.setCis(value);
+                itsSatelliteNavigationData.setCis(value);
                 return;
             case 22:
-                itsNavigationMessage.setI0(value);
+                itsSatelliteNavigationData.setI0(value);
                 return;
             case 23:
-                itsNavigationMessage.setCrc(value);
+                itsSatelliteNavigationData.setCrc(value);
                 return;
             case 24:
-                itsNavigationMessage.setSmallOmega(value);
+                itsSatelliteNavigationData.setSmallOmega(value);
                 return;
             case 25:
-                itsNavigationMessage.setOmegaDot(value);
+                itsSatelliteNavigationData.setOmegaDot(value);
                 return;
             case 26:
-                itsNavigationMessage.setIDot(value);
+                itsSatelliteNavigationData.setIDot(value);
                 return;
             case 27:
-                itsNavigationMessage.setCodesOnL2Channel((int) value);
+                itsSatelliteNavigationData.setCodesOnL2Channel((int) value);
                 return;
             case 28:
-                itsNavigationMessage.setGpsWeekNumber((int) value);
+                itsSatelliteNavigationData.setGpsWeekNumber((int) value);
                 return;
             case 29:
-                itsNavigationMessage.setL2PDataFlag((int) value);
+                itsSatelliteNavigationData.setL2PDataFlag((int) value);
                 return;
             case 30:
-                itsNavigationMessage.setSvAccuracy((int) value);
+                itsSatelliteNavigationData.setSvAccuracy((int) value);
                 return;
             case 31:
-                itsNavigationMessage.setSvHealth((int) value);
+                itsSatelliteNavigationData.setSvHealth((int) value);
                 return;
             case 32:
-                itsNavigationMessage.setTgd(value);
+                itsSatelliteNavigationData.setTgd(value);
                 return;
             case 33:
-                itsNavigationMessage.setIodc((int) value);
+                itsSatelliteNavigationData.setIodc((int) value);
                 return;
             case 34:
-                itsNavigationMessage.setTransmissionTimeOfMessage((int) value);
+                itsSatelliteNavigationData.setTransmissionTimeOfMessage((int) value);
                 return;
             case 35:
-                itsNavigationMessage.setFitIntervalInHours((int) value);
+                itsSatelliteNavigationData.setFitIntervalInHours((int) value);
                 itsReadyFlag = true;
                 return;
         }
@@ -140,8 +140,8 @@ abstract class RinexGpsNavigationMessageBuilder implements RinexNavigationMessag
 
     protected abstract int getLastIndex();
 
-    public RinexData build() {
-        return itsNavigationMessage;
+    public RinexRecord build() {
+        return itsSatelliteNavigationData;
     }
 
     public boolean isReady() {

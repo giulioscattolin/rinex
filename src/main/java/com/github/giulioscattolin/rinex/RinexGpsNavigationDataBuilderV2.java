@@ -1,6 +1,6 @@
 package com.github.giulioscattolin.rinex;
 
-class RinexGpsNavigationMessageBuilderV2 extends RinexGpsNavigationMessageBuilder {
+class RinexGpsNavigationDataBuilderV2 extends RinexGpsNavigationDataBuilder {
     protected int getLastIndex() {
         return 34;
     }
