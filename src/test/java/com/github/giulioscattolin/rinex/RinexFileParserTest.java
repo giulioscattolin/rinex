@@ -36,7 +36,12 @@ public class RinexFileParserTest {
 
         assertThat(itsRinexFiles).hasSize(1);
         RinexFile file = itsRinexFiles.get(0);
-        assertThat(file.getHeaders()).hasSize(0);
+
+        assertThat(file.getHeaders()).hasSize(1);
+        RinexVersionType rinexVersionType = (RinexVersionType)file.getHeaders().get(0);
+        assertThat(rinexVersionType.getFormatVersion()).isEqualTo("2");
+        assertThat(rinexVersionType.getFileType()).isEqualTo('N');
+
         assertThat(file.getRecords()).hasSize(172);
         RinexGpsNavigationData sampleRinexGpsNavigationData = (RinexGpsNavigationData) file.getRecords().get(18);
         assertThat(sampleRinexGpsNavigationData.getPrn()).isEqualTo(3);
@@ -83,7 +88,12 @@ public class RinexFileParserTest {
 
         assertThat(itsRinexFiles).hasSize(1);
         RinexFile file = itsRinexFiles.get(0);
-        assertThat(file.getHeaders()).hasSize(0);
+
+        assertThat(file.getHeaders()).hasSize(1);
+        RinexVersionType rinexVersionType = (RinexVersionType)file.getHeaders().get(0);
+        assertThat(rinexVersionType.getFormatVersion()).isEqualTo("2.10");
+        assertThat(rinexVersionType.getFileType()).isEqualTo('N');
+
         assertThat(file.getRecords()).hasSize(289);
         RinexGpsNavigationData sampleRinexGpsNavigationData = (RinexGpsNavigationData) file.getRecords().get(3);
         assertThat(sampleRinexGpsNavigationData.getPrn()).isEqualTo(2);
@@ -131,7 +141,13 @@ public class RinexFileParserTest {
 
         assertThat(itsRinexFiles).hasSize(1);
         RinexFile file = itsRinexFiles.get(0);
-        assertThat(file.getHeaders()).hasSize(0);
+
+        assertThat(file.getHeaders()).hasSize(1);
+        RinexVersionType rinexVersionType = (RinexVersionType)file.getHeaders().get(0);
+        assertThat(rinexVersionType.getFormatVersion()).isEqualTo("3.02");
+        assertThat(rinexVersionType.getFileType()).isEqualTo('N');
+        assertThat(rinexVersionType.getSatelliteSystem()).isEqualTo('G');
+
         assertThat(file.getRecords()).hasSize(276);
     }
 
@@ -146,7 +162,13 @@ public class RinexFileParserTest {
 
         assertThat(itsRinexFiles).hasSize(1);
         RinexFile file = itsRinexFiles.get(0);
-        assertThat(file.getHeaders()).hasSize(0);
+
+        assertThat(file.getHeaders()).hasSize(1);
+        RinexVersionType rinexVersionType = (RinexVersionType)file.getHeaders().get(0);
+        assertThat(rinexVersionType.getFormatVersion()).isEqualTo("3.03");
+        assertThat(rinexVersionType.getFileType()).isEqualTo('N');
+        assertThat(rinexVersionType.getSatelliteSystem()).isEqualTo('G');
+
         assertThat(file.getRecords()).hasSize(206);
         RinexGpsNavigationData sampleRinexGpsNavigationData = (RinexGpsNavigationData) file.getRecords().get(37);
         assertThat(sampleRinexGpsNavigationData.getPrn()).isEqualTo(17);
@@ -194,7 +216,13 @@ public class RinexFileParserTest {
 
         assertThat(itsRinexFiles).hasSize(1);
         RinexFile file = itsRinexFiles.get(0);
-        assertThat(file.getHeaders()).hasSize(0);
+
+        assertThat(file.getHeaders()).hasSize(1);
+        RinexVersionType rinexVersionType = (RinexVersionType)file.getHeaders().get(0);
+        assertThat(rinexVersionType.getFormatVersion()).isEqualTo("3.04");
+        assertThat(rinexVersionType.getFileType()).isEqualTo('N');
+        assertThat(rinexVersionType.getSatelliteSystem()).isEqualTo('G');
+
         assertThat(file.getRecords()).hasSize(209);
     }
 

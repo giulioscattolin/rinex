@@ -36,6 +36,7 @@ public class RinexFileParser {
             char satelliteSystem = itsLine.charAt(40);
             switch (version) {
                 case "2":
+                    addVersionTypeHeader(version, fileType);
                     switch (fileType) {
                         case 'N':
                             itsLineReader = new NavigationHeader();
@@ -47,6 +48,7 @@ public class RinexFileParser {
                             return;
                     }
                 case "2.10":
+                    addVersionTypeHeader(version, fileType);
                     switch (fileType) {
                         case 'N':
                             itsLineReader = new NavigationHeader();
@@ -60,6 +62,7 @@ public class RinexFileParser {
                 case "3.02":
                 case "3.03":
                 case "3.04":
+                    addVersionTypeHeader(version, fileType, satelliteSystem);
                     switch (fileType) {
                         case 'N':
                             switch (satelliteSystem) {
@@ -74,6 +77,14 @@ public class RinexFileParser {
                             }
                     }
             }
+        }
+
+        private void addVersionTypeHeader(String version, char fileType) {
+            itsMutableRinexFile.addHeader(new RinexVersionType(version, fileType));
+        }
+
+        private void addVersionTypeHeader(String version, char fileType, char satelliteSystem) {
+            itsMutableRinexFile.addHeader(new RinexVersionType(version, fileType, satelliteSystem));
         }
     }
 
