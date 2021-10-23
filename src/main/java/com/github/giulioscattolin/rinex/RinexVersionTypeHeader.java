@@ -1,17 +1,17 @@
 package com.github.giulioscattolin.rinex;
 
-public class RinexVersionType implements RinexHeader {
+public class RinexVersionTypeHeader implements RinexHeader {
     private final String itsFormatVersion;
     private final char itsFileType;
     private final char itsSatelliteSystem;
 
-    RinexVersionType(String formatVersion, char fileType) {
+    RinexVersionTypeHeader(String formatVersion, char fileType) {
         itsFormatVersion = formatVersion;
         itsFileType = fileType;
         itsSatelliteSystem = '?';
     }
 
-    RinexVersionType(String formatVersion, char fileType, char satelliteSystem) {
+    RinexVersionTypeHeader(String formatVersion, char fileType, char satelliteSystem) {
         itsFormatVersion = formatVersion;
         itsFileType = fileType;
         itsSatelliteSystem = satelliteSystem;

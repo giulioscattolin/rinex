@@ -80,11 +80,11 @@ public class RinexFileParser {
         }
 
         private void addVersionTypeHeader(String version, char fileType) {
-            itsMutableRinexFile.addHeader(new RinexVersionType(version, fileType));
+            itsMutableRinexFile.addHeader(new RinexVersionTypeHeader(version, fileType));
         }
 
         private void addVersionTypeHeader(String version, char fileType, char satelliteSystem) {
-            itsMutableRinexFile.addHeader(new RinexVersionType(version, fileType, satelliteSystem));
+            itsMutableRinexFile.addHeader(new RinexVersionTypeHeader(version, fileType, satelliteSystem));
         }
     }
 

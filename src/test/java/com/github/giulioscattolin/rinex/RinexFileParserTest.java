@@ -33,7 +33,7 @@ public class RinexFileParserTest {
         RinexFile file = itsRinexFiles.get(0);
 
         assertThat(file.getHeaders()).hasSize(2);
-        RinexVersionType rinexVersionType = (RinexVersionType) file.getHeaders().get(0);
+        RinexVersionTypeHeader rinexVersionType = (RinexVersionTypeHeader) file.getHeaders().get(0);
         assertThat(rinexVersionType.getFormatVersion()).isEqualTo("2");
         assertThat(rinexVersionType.getFileType()).isEqualTo('N');
         RinexPgmRunByDateHeader pgmRunByDate = (RinexPgmRunByDateHeader) file.getHeaders().get(1);
@@ -84,7 +84,7 @@ public class RinexFileParserTest {
         RinexFile file = itsRinexFiles.get(0);
 
         assertThat(file.getHeaders()).hasSize(2);
-        RinexVersionType rinexVersionType = (RinexVersionType) file.getHeaders().get(0);
+        RinexVersionTypeHeader rinexVersionType = (RinexVersionTypeHeader) file.getHeaders().get(0);
         assertThat(rinexVersionType.getFormatVersion()).isEqualTo("2.10");
         assertThat(rinexVersionType.getFileType()).isEqualTo('N');
         RinexPgmRunByDateHeader pgmRunByDate = (RinexPgmRunByDateHeader) file.getHeaders().get(1);
@@ -136,7 +136,7 @@ public class RinexFileParserTest {
         RinexFile file = itsRinexFiles.get(0);
 
         assertThat(file.getHeaders()).hasSize(2);
-        RinexVersionType rinexVersionType = (RinexVersionType) file.getHeaders().get(0);
+        RinexVersionTypeHeader rinexVersionType = (RinexVersionTypeHeader) file.getHeaders().get(0);
         assertThat(rinexVersionType.getFormatVersion()).isEqualTo("3.02");
         assertThat(rinexVersionType.getFileType()).isEqualTo('N');
         assertThat(rinexVersionType.getSatelliteSystem()).isEqualTo('G');
@@ -156,7 +156,7 @@ public class RinexFileParserTest {
         RinexFile file = itsRinexFiles.get(0);
 
         assertThat(file.getHeaders()).hasSize(2);
-        RinexVersionType rinexVersionType = (RinexVersionType) file.getHeaders().get(0);
+        RinexVersionTypeHeader rinexVersionType = (RinexVersionTypeHeader) file.getHeaders().get(0);
         assertThat(rinexVersionType.getFormatVersion()).isEqualTo("3.03");
         assertThat(rinexVersionType.getFileType()).isEqualTo('N');
         assertThat(rinexVersionType.getSatelliteSystem()).isEqualTo('G');
@@ -209,7 +209,7 @@ public class RinexFileParserTest {
         RinexFile file = itsRinexFiles.get(0);
 
         assertThat(file.getHeaders()).hasSize(2);
-        RinexVersionType rinexVersionType = (RinexVersionType) file.getHeaders().get(0);
+        RinexVersionTypeHeader rinexVersionType = (RinexVersionTypeHeader) file.getHeaders().get(0);
         assertThat(rinexVersionType.getFormatVersion()).isEqualTo("3.04");
         assertThat(rinexVersionType.getFileType()).isEqualTo('N');
         assertThat(rinexVersionType.getSatelliteSystem()).isEqualTo('G');
