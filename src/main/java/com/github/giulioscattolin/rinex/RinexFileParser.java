@@ -90,17 +90,21 @@ public class RinexFileParser {
 
     class NavigationHeader extends LineReader {
         protected void execute() {
-            if (!findPgmRunByDate())
-                findEndOfHeader();
+            switch (getHeaderLabel()) {
+                case "PGM / RUN BY / DATE":
+                    parsePgmRunByDateHeader();
+                    return;
+                case "END OF HEADER":
+                    itsLineReader = itsLineReaderSupplier.get();
+                    return;
+            }
         }
 
-        private boolean findPgmRunByDate() {
-            return false;
-        }
-
-        private void findEndOfHeader() {
-            if (isHeaderLabelEqualTo("END OF HEADER"))
-                itsLineReader = itsLineReaderSupplier.get();
+        private void parsePgmRunByDateHeader() {
+            String program = itsLine.substring(0, 20).trim();
+            String agency = itsLine.substring(20, 40).trim();
+            String timestamp = itsLine.substring(40, 60).trim();
+            itsMutableRinexFile.addHeader(new RinexPgmRunByDateHeader(program, agency, timestamp));
         }
     }
 
