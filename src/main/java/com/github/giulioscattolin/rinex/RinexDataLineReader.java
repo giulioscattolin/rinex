@@ -7,7 +7,6 @@ import static java.lang.Double.isNaN;
 
 public class RinexDataLineReader {
     private final RinexDataCollector itsCollector;
-    MutableRinexGpsNavigationMessage itsGpsNavigationMessage;
     RinexNavigationMessageBuilder itsNavigationMessageBuilder;
     private LineReader itsReader = new VersionTypeReader();
     private Supplier<LineReader> itsDataReaderSupplier;
@@ -21,7 +20,7 @@ public class RinexDataLineReader {
     }
 
     class VersionTypeReader extends LineReader {
-        protected void readLine() {
+        protected void execute() {
             if (isHeader("RINEX VERSION / TYPE"))
                 parseLine();
         }
@@ -74,7 +73,7 @@ public class RinexDataLineReader {
     }
 
     class HeaderReader extends LineReader {
-        protected void readLine() {
+        protected void execute() {
             if (!findPgmRunByDate())
                 findEndOfHeader();
         }
@@ -100,7 +99,7 @@ public class RinexDataLineReader {
             itsBroadcastOrbitCompilerSupplier = broadcastOrbitCompilerSupplier;
         }
 
-        protected void readLine() {
+        protected void execute() {
             if (isHeader("RINEX VERSION / TYPE")) {
                 itsReader = new VersionTypeReader();
                 return;
@@ -111,13 +110,8 @@ public class RinexDataLineReader {
         private void whichSatelliteSystem() {
             char satelliteSystem = itsSvEpochSvClkReader.getSatelliteSystem(itsLine);
             itsNavigationMessageBuilder = itsNavigationMessageBuilderSupplier.apply(satelliteSystem);
-            switch (satelliteSystem) {
-                case 'G':
-                    itsGpsNavigationMessage = new MutableRinexGpsNavigationMessage();
-                    itsReader = itsBroadcastOrbitCompilerSupplier.get();
-                    findPrn();
-                    return;
-            }
+            itsReader = itsBroadcastOrbitCompilerSupplier.get();
+            findPrn();
         }
 
         private void findPrn() {
@@ -167,7 +161,7 @@ public class RinexDataLineReader {
             itsParameterReader = parameterReader;
         }
 
-        protected void readLine() {
+        protected void execute() {
             for (int i = 0; i < 4 && shouldContinue; i++)
                 readParameter(i);
         }

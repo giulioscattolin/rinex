@@ -5,10 +5,10 @@ abstract class LineReader {
 
     void readLine(String line) {
         itsLine = line;
-        readLine();
+        execute();
     }
 
-    protected abstract void readLine();
+    protected abstract void execute();
 
     protected boolean isHeader(String header) {
         return itsLine.length() >= 60 && isHeaderLabelEqualTo(header);
