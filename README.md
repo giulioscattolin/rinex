@@ -1,5 +1,7 @@
 # rinex
 A Java library that facilitates the reading and processing of RINEX data.
+* Parse GPS navigation message files
+* Query headers and records, for example [RinexGpsNavigationData](src/main/java/com/github/giulioscattolin/rinex/RinexGpsNavigationData.java)
 
 ![CI badge](https://github.com/giulioscattolin/rinex/actions/workflows/gradle.yml/badge.svg)
 ![JitPack badge](https://jitpack.io/v/giulioscattolin/rinex.svg)
