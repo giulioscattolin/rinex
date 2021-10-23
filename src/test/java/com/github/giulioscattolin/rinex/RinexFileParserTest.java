@@ -27,12 +27,7 @@ public class RinexFileParserTest {
 
     @Test
     public void parseRinexV200GpsNavigationMessageFile() throws URISyntaxException, IOException {
-        try (BufferedReader reader = openBufferedReader("dlft3640.99n")) {
-            String line;
-            while ((line = reader.readLine()) != null)
-                itsParser.readLine(line);
-            itsParser.flush();
-        }
+        parse("dlft3640.99n");
 
         assertThat(itsRinexFiles).hasSize(1);
         RinexFile file = itsRinexFiles.get(0);
@@ -83,12 +78,7 @@ public class RinexFileParserTest {
 
     @Test
     public void parseRinexV210GpsNavigationMessageFile() throws URISyntaxException, IOException {
-        try (BufferedReader reader = openBufferedReader("usn81000.16n")) {
-            String line;
-            while ((line = reader.readLine()) != null)
-                itsParser.readLine(line);
-            itsParser.flush();
-        }
+        parse("usn81000.16n");
 
         assertThat(itsRinexFiles).hasSize(1);
         RinexFile file = itsRinexFiles.get(0);
@@ -140,12 +130,7 @@ public class RinexFileParserTest {
 
     @Test
     public void parseRinexV302GpsNavigationMessageFile() throws URISyntaxException, IOException {
-        try (BufferedReader reader = openBufferedReader("KOUR00GUF_R_20153620000_01D_GN.rnx")) {
-            String line;
-            while ((line = reader.readLine()) != null)
-                itsParser.readLine(line);
-            itsParser.flush();
-        }
+        parse("KOUR00GUF_R_20153620000_01D_GN.rnx");
 
         assertThat(itsRinexFiles).hasSize(1);
         RinexFile file = itsRinexFiles.get(0);
@@ -165,12 +150,7 @@ public class RinexFileParserTest {
 
     @Test
     public void parseRinexV303GpsNavigationMessageFile() throws URISyntaxException, IOException {
-        try (BufferedReader reader = openBufferedReader("STJ300CAN_R_20200600000_01D_GN.rnx")) {
-            String line;
-            while ((line = reader.readLine()) != null)
-                itsParser.readLine(line);
-            itsParser.flush();
-        }
+        parse("STJ300CAN_R_20200600000_01D_GN.rnx");
 
         assertThat(itsRinexFiles).hasSize(1);
         RinexFile file = itsRinexFiles.get(0);
@@ -223,12 +203,7 @@ public class RinexFileParserTest {
 
     @Test
     public void parseRinexV304GpsNavigationMessageFile() throws URISyntaxException, IOException {
-        try (BufferedReader reader = openBufferedReader("BOGI00POL_R_20210600000_01D_GN.rnx")) {
-            String line;
-            while ((line = reader.readLine()) != null)
-                itsParser.readLine(line);
-            itsParser.flush();
-        }
+        parse("BOGI00POL_R_20210600000_01D_GN.rnx");
 
         assertThat(itsRinexFiles).hasSize(1);
         RinexFile file = itsRinexFiles.get(0);
@@ -244,6 +219,15 @@ public class RinexFileParserTest {
         assertThat(pgmRunByDate.getTimestamp()).isEqualTo("20210301 010023 UTC");
 
         assertThat(file.getRecords()).hasSize(209);
+    }
+
+    private void parse(String path) throws IOException, URISyntaxException {
+        try (BufferedReader reader = openBufferedReader(path)) {
+            String line;
+            while ((line = reader.readLine()) != null)
+                itsParser.readLine(line);
+            itsParser.flush();
+        }
     }
 
     private BufferedReader openBufferedReader(String path) throws FileNotFoundException, URISyntaxException {
