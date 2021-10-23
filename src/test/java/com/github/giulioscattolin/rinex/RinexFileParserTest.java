@@ -38,10 +38,10 @@ public class RinexFileParserTest {
         RinexFile file = itsRinexFiles.get(0);
 
         assertThat(file.getHeaders()).hasSize(2);
-        RinexVersionType rinexVersionType = (RinexVersionType)file.getHeaders().get(0);
+        RinexVersionType rinexVersionType = (RinexVersionType) file.getHeaders().get(0);
         assertThat(rinexVersionType.getFormatVersion()).isEqualTo("2");
         assertThat(rinexVersionType.getFileType()).isEqualTo('N');
-        RinexPgmRunByDateHeader pgmRunByDate = (RinexPgmRunByDateHeader)file.getHeaders().get(1);
+        RinexPgmRunByDateHeader pgmRunByDate = (RinexPgmRunByDateHeader) file.getHeaders().get(1);
         assertThat(pgmRunByDate.getProgram()).isEqualTo("JPS2RIN 1.03");
         assertThat(pgmRunByDate.getAgency()).isEqualTo("TU DELFT");
         assertThat(pgmRunByDate.getTimestamp()).isEqualTo("03-JAN-00 11:50");
@@ -94,10 +94,10 @@ public class RinexFileParserTest {
         RinexFile file = itsRinexFiles.get(0);
 
         assertThat(file.getHeaders()).hasSize(2);
-        RinexVersionType rinexVersionType = (RinexVersionType)file.getHeaders().get(0);
+        RinexVersionType rinexVersionType = (RinexVersionType) file.getHeaders().get(0);
         assertThat(rinexVersionType.getFormatVersion()).isEqualTo("2.10");
         assertThat(rinexVersionType.getFileType()).isEqualTo('N');
-        RinexPgmRunByDateHeader pgmRunByDate = (RinexPgmRunByDateHeader)file.getHeaders().get(1);
+        RinexPgmRunByDateHeader pgmRunByDate = (RinexPgmRunByDateHeader) file.getHeaders().get(1);
         assertThat(pgmRunByDate.getProgram()).isEqualTo("sbf2rin-5.2.0");
         assertThat(pgmRunByDate.getAgency()).isEqualTo("");
         assertThat(pgmRunByDate.getTimestamp()).isEqualTo("(10-APR-16 00:15)");
@@ -151,11 +151,11 @@ public class RinexFileParserTest {
         RinexFile file = itsRinexFiles.get(0);
 
         assertThat(file.getHeaders()).hasSize(2);
-        RinexVersionType rinexVersionType = (RinexVersionType)file.getHeaders().get(0);
+        RinexVersionType rinexVersionType = (RinexVersionType) file.getHeaders().get(0);
         assertThat(rinexVersionType.getFormatVersion()).isEqualTo("3.02");
         assertThat(rinexVersionType.getFileType()).isEqualTo('N');
         assertThat(rinexVersionType.getSatelliteSystem()).isEqualTo('G');
-        RinexPgmRunByDateHeader pgmRunByDate = (RinexPgmRunByDateHeader)file.getHeaders().get(1);
+        RinexPgmRunByDateHeader pgmRunByDate = (RinexPgmRunByDateHeader) file.getHeaders().get(1);
         assertThat(pgmRunByDate.getProgram()).isEqualTo("sbf2rin-9.3.3");
         assertThat(pgmRunByDate.getAgency()).isEqualTo("");
         assertThat(pgmRunByDate.getTimestamp()).isEqualTo("20151229 000419 LCL");
@@ -176,11 +176,11 @@ public class RinexFileParserTest {
         RinexFile file = itsRinexFiles.get(0);
 
         assertThat(file.getHeaders()).hasSize(2);
-        RinexVersionType rinexVersionType = (RinexVersionType)file.getHeaders().get(0);
+        RinexVersionType rinexVersionType = (RinexVersionType) file.getHeaders().get(0);
         assertThat(rinexVersionType.getFormatVersion()).isEqualTo("3.03");
         assertThat(rinexVersionType.getFileType()).isEqualTo('N');
         assertThat(rinexVersionType.getSatelliteSystem()).isEqualTo('G');
-        RinexPgmRunByDateHeader pgmRunByDate = (RinexPgmRunByDateHeader)file.getHeaders().get(1);
+        RinexPgmRunByDateHeader pgmRunByDate = (RinexPgmRunByDateHeader) file.getHeaders().get(1);
         assertThat(pgmRunByDate.getProgram()).isEqualTo("sbf2rin-13.2.1");
         assertThat(pgmRunByDate.getAgency()).isEqualTo("");
         assertThat(pgmRunByDate.getTimestamp()).isEqualTo("20200301 005013 UTC");
@@ -234,11 +234,11 @@ public class RinexFileParserTest {
         RinexFile file = itsRinexFiles.get(0);
 
         assertThat(file.getHeaders()).hasSize(2);
-        RinexVersionType rinexVersionType = (RinexVersionType)file.getHeaders().get(0);
+        RinexVersionType rinexVersionType = (RinexVersionType) file.getHeaders().get(0);
         assertThat(rinexVersionType.getFormatVersion()).isEqualTo("3.04");
         assertThat(rinexVersionType.getFileType()).isEqualTo('N');
         assertThat(rinexVersionType.getSatelliteSystem()).isEqualTo('G');
-        RinexPgmRunByDateHeader pgmRunByDate = (RinexPgmRunByDateHeader)file.getHeaders().get(1);
+        RinexPgmRunByDateHeader pgmRunByDate = (RinexPgmRunByDateHeader) file.getHeaders().get(1);
         assertThat(pgmRunByDate.getProgram()).isEqualTo("JPS2RIN v.2.0.168");
         assertThat(pgmRunByDate.getAgency()).isEqualTo("BASH SCRIPT");
         assertThat(pgmRunByDate.getTimestamp()).isEqualTo("20210301 010023 UTC");
