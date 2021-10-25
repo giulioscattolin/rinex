@@ -136,7 +136,7 @@ public class RinexFileParser {
 
         private void findPrn() {
             int prn = itsSvEpochSvClkReader.getSatelliteNumberOrNegative(itsLine);
-            if (prn < 0)
+            if (prn < 1)
                 return;
             itsNavigationMessageBuilder.setParameter(0, prn);
             findToc();
