@@ -6,4 +6,7 @@ public interface RinexHeaderVisitor {
 
     default void visit(RinexPgmRunByDateHeader rinexPgmRunByDateHeader) {
     }
+
+    default void visit(RinexMarkerNameHeader rinexMarkerNameHeader) {
+    }
 }

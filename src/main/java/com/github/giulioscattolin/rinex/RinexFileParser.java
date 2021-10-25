@@ -60,6 +60,8 @@ public class RinexFileParser {
                             return;
                         case 'O':
                             addVersionTypeHeader(version, fileType, satelliteSystem);
+                            itsLineReader = new ObservationDataFileHeader();
+                            itsLineReaderSupplier = () -> new VersionType();
                             return;
                     }
                 case "3.02":
@@ -108,6 +110,34 @@ public class RinexFileParser {
             String agency = itsLine.substring(20, 40).trim();
             String timestamp = itsLine.substring(40, 60).trim();
             itsMutableRinexFile.addHeader(new RinexPgmRunByDateHeader(program, agency, timestamp));
+        }
+    }
+
+    class ObservationDataFileHeader extends LineReader {
+        protected void execute() {
+            switch (getHeaderLabel()) {
+                case "PGM / RUN BY / DATE":
+                    parsePgmRunByDateHeader();
+                    return;
+                case "MARKER NAME":
+                    parseMarkerNameHeader();
+                    return;
+                case "END OF HEADER":
+                    itsLineReader = itsLineReaderSupplier.get();
+                    return;
+            }
+        }
+
+        private void parsePgmRunByDateHeader() {
+            String program = itsLine.substring(0, 20).trim();
+            String agency = itsLine.substring(20, 40).trim();
+            String timestamp = itsLine.substring(40, 60).trim();
+            itsMutableRinexFile.addHeader(new RinexPgmRunByDateHeader(program, agency, timestamp));
+        }
+
+        private void parseMarkerNameHeader() {
+            String name = itsLine.substring(0, 60).trim();
+            itsMutableRinexFile.addHeader(new RinexMarkerNameHeader(name));
         }
     }
 
