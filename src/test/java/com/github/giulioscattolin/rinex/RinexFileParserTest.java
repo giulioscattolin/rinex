@@ -85,6 +85,27 @@ public class RinexFileParserTest {
     }
 
     @Test
+    public void parseRinexNavigationFileV200_Year2000() throws URISyntaxException, IOException {
+        parse("yarr0030.00n");
+
+        assertThat(itsRinexFiles).hasSize(1);
+        RinexFile file = itsRinexFiles.get(0);
+
+        assertThat(file.getHeaders()).hasSize(2);
+        RinexVersionTypeHeader rinexVersionType = (RinexVersionTypeHeader) file.getHeaders().get(0);
+        assertThat(rinexVersionType.getFormatVersion()).isEqualTo("2");
+        assertThat(rinexVersionType.getFileType()).isEqualTo('N');
+        RinexPgmRunByDateHeader pgmRunByDate = (RinexPgmRunByDateHeader) file.getHeaders().get(1);
+        assertThat(pgmRunByDate.getProgram()).isEqualTo("ASRINEXN V2.4.6 UX");
+        assertThat(pgmRunByDate.getAgency()).isEqualTo("AIUB");
+        assertThat(pgmRunByDate.getTimestamp()).isEqualTo("07-FEB- 0 15:51");
+
+        assertThat(file.getRecords()).hasSize(149);
+        RinexGpsNavigationData sampleRinexGpsNavigationData = (RinexGpsNavigationData) file.getRecords().get(0);
+        assertThat(sampleRinexGpsNavigationData.getToc()).isEqualTo(LocalDateTime.of(2000, 1, 3, 0, 0, 0, 0));
+    }
+
+    @Test
     public void parseRinexV210GpsNavigationMessageFile() throws URISyntaxException, IOException {
         parse("usn81000.16n");
 

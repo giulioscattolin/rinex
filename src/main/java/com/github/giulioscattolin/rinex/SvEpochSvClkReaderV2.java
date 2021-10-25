@@ -1,7 +1,6 @@
 package com.github.giulioscattolin.rinex;
 
-import static com.github.giulioscattolin.rinex.Utilities.parseTwoDigitIntegerOrDefault;
-import static com.github.giulioscattolin.rinex.Utilities.toFloatingPointNumberOrNaN;
+import static com.github.giulioscattolin.rinex.Utilities.*;
 
 class SvEpochSvClkReaderV2 implements SvEpochSvClkReader {
     private final char itsSatelliteSystem;
@@ -43,7 +42,11 @@ class SvEpochSvClkReaderV2 implements SvEpochSvClkReader {
     }
 
     public int getTocSecondOrNegative(String line) {
-        return parseTwoDigitIntegerOrDefault(line.substring(18, 20), -1);
+        String second = line.substring(18, 20);
+        if (isBlank(second))
+            return 0;
+        else
+            return parseTwoDigitIntegerOrDefault(second, -1);
     }
 
     public double getFirstTimeParameterOrNaN(String line) {

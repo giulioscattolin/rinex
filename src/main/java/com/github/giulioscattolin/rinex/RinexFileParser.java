@@ -149,7 +149,7 @@ public class RinexFileParser {
             int hour = itsSvEpochSvClkReader.getTocHourOrNegative(itsLine);
             int minute = itsSvEpochSvClkReader.getTocMinuteOrNegative(itsLine);
             int second = itsSvEpochSvClkReader.getTocSecondOrNegative(itsLine);
-            if (year < 0 || month < 0 || day < 0 || hour < 0 || minute < 0 || second < 0)
+            if (year < 0 || month < 1 || day < 1 || hour < 0 || minute < 0 || second < 0)
                 return;
             itsNavigationMessageBuilder.setParameter(1, year);
             itsNavigationMessageBuilder.setParameter(2, month);
