@@ -1,3 +1,10 @@
+# [1.0.0-alpha.3](https://github.com/giulioscattolin/rinex/compare/v1.0.0-alpha.2...v1.0.0-alpha.3) (2021-10-25)
+
+
+### Features
+
+* parse GPS navigation data from RINEX mixed navigation files ([c263c3f](https://github.com/giulioscattolin/rinex/commit/c263c3f77ec80e570503a255e94242dc0db9ff08))
+
 # [1.0.0-alpha.2](https://github.com/giulioscattolin/rinex/compare/v1.0.0-alpha.1...v1.0.0-alpha.2) (2021-10-25)
 
 
