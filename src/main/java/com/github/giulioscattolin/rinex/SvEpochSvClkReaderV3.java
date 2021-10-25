@@ -36,7 +36,7 @@ class SvEpochSvClkReaderV3 implements SvEpochSvClkReader {
     }
 
     public double getFirstTimeParameterOrNaN(String line) {
-        return toFloatingPointNumberOrNaN(line.substring(24, 42));
+        return toFloatingPointNumberOrNaN(line.substring(23, 42));
     }
 
     public double getSecondTimeParameterOrNaN(String line) {
