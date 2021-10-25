@@ -1,5 +1,6 @@
 package com.github.giulioscattolin.rinex;
 
+@Deprecated
 public interface RinexHeaderVisitor {
     default void visit(RinexVersionTypeHeader rinexVersionTypeHeader) {
     }

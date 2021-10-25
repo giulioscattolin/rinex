@@ -2,6 +2,7 @@ package com.github.giulioscattolin.rinex;
 
 import static com.github.giulioscattolin.rinex.Utilities.*;
 
+@Deprecated
 class SvEpochSvClkReaderV3 implements SvEpochSvClkReader {
     public char getSatelliteSystem(String line) {
         return line.charAt(0);

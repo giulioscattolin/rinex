@@ -2,6 +2,7 @@ package com.github.giulioscattolin.rinex;
 
 import java.time.LocalDateTime;
 
+@Deprecated
 public abstract class RinexGpsNavigationData implements RinexRecord {
     public void accept(RinexRecordVisitor visitor) {
         visitor.visit(this);

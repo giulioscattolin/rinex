@@ -2,6 +2,7 @@ package com.github.giulioscattolin.rinex;
 
 import java.time.LocalDateTime;
 
+@Deprecated
 class MutableRinexGpsNavigationDataBuilder extends RinexGpsNavigationData {
     private static final int INVALID_INT = Integer.MIN_VALUE;
     private int itsPrn;

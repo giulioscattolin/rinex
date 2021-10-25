@@ -2,6 +2,7 @@ package com.github.giulioscattolin.rinex;
 
 import java.time.LocalDateTime;
 
+@Deprecated
 abstract class RinexGpsNavigationDataBuilder implements RinexNavigationDataBuilder {
     private final MutableRinexGpsNavigationDataBuilder itsSatelliteNavigationData = new MutableRinexGpsNavigationDataBuilder();
     private int itsTocYear;

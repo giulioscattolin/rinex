@@ -3,6 +3,7 @@ package com.github.giulioscattolin.rinex;
 import java.util.LinkedList;
 import java.util.List;
 
+@Deprecated
 class MutableRinexFile implements RinexFile{
     private final List<RinexHeader> itsHeaders = new LinkedList<>();
     private final List<RinexRecord> itsRecords = new LinkedList<>();

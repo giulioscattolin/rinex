@@ -4,11 +4,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.*;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
+import static com.github.giulioscattolin.rinex.TestHelper.toBufferedReader;
 import static com.google.common.truth.Truth.assertThat;
 
 public class RinexFileParserTest {
@@ -294,15 +296,11 @@ public class RinexFileParserTest {
     }
 
     private void parse(String path) throws IOException, URISyntaxException {
-        try (BufferedReader reader = openBufferedReader(path)) {
+        try (BufferedReader reader = toBufferedReader(path)) {
             String line;
             while ((line = reader.readLine()) != null)
                 itsParser.readLine(line);
             itsParser.flush();
         }
-    }
-
-    private BufferedReader openBufferedReader(String path) throws FileNotFoundException, URISyntaxException {
-        return new BufferedReader(new FileReader(new File(RinexFileParserTest.class.getResource(path).toURI())));
     }
 }

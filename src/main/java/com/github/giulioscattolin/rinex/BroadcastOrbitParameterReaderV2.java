@@ -2,6 +2,7 @@ package com.github.giulioscattolin.rinex;
 
 import static com.github.giulioscattolin.rinex.Utilities.toFloatingPointNumberOrNaN;
 
+@Deprecated
 class BroadcastOrbitParameterReaderV2 implements BroadcastOrbitParameterReader{
     public double getParameterOrNaN(String line, int index) {
         switch (index) {

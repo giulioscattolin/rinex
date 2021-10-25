@@ -1,5 +1,6 @@
 package com.github.giulioscattolin.rinex;
 
+@Deprecated
 abstract class LineReader {
     protected String itsLine;
 

@@ -1,5 +1,6 @@
 package com.github.giulioscattolin.rinex;
 
+@Deprecated
 interface SvEpochSvClkReader {
     char getSatelliteSystem(String line);
 

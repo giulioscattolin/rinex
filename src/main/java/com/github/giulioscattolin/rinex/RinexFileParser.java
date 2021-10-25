@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 
 import static java.lang.Double.isNaN;
 
+@Deprecated
 public class RinexFileParser {
     private final RinexFileCollector itsFileCollector;
     RinexNavigationDataBuilder itsNavigationMessageBuilder;

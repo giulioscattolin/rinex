@@ -1,5 +1,6 @@
 package com.github.giulioscattolin.rinex;
 
+@Deprecated
 interface RinexNavigationDataBuilder {
     void setParameter(int index, int value);
 
