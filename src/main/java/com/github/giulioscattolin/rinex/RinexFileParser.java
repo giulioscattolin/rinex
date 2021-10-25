@@ -122,6 +122,9 @@ public class RinexFileParser {
                 case "MARKER NAME":
                     parseMarkerNameHeader();
                     return;
+                case "OBSERVER / AGENCY":
+                    parseObserverAgencyHeader();
+                    return;
                 case "END OF HEADER":
                     itsLineReader = itsLineReaderSupplier.get();
                     return;
@@ -138,6 +141,12 @@ public class RinexFileParser {
         private void parseMarkerNameHeader() {
             String name = itsLine.substring(0, 60).trim();
             itsMutableRinexFile.addHeader(new RinexMarkerNameHeader(name));
+        }
+
+        private void parseObserverAgencyHeader() {
+            String observer = itsLine.substring(0, 20).trim();
+            String agency = itsLine.substring(20, 60).trim();
+            itsMutableRinexFile.addHeader(new RinexObserverAgencyHeader(observer, agency));
         }
     }
 

@@ -9,4 +9,7 @@ public interface RinexHeaderVisitor {
 
     default void visit(RinexMarkerNameHeader rinexMarkerNameHeader) {
     }
+
+    default void visit(RinexObserverAgencyHeader rinexObserverAgencyHeader) {
+    }
 }

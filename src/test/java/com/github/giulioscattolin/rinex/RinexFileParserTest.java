@@ -257,7 +257,7 @@ public class RinexFileParserTest {
         assertThat(itsRinexFiles).hasSize(1);
         RinexFile file = itsRinexFiles.get(0);
 
-        assertThat(file.getHeaders()).hasSize(3);
+        assertThat(file.getHeaders()).hasSize(4);
         RinexVersionTypeHeader rinexVersionType = (RinexVersionTypeHeader) file.getHeaders().get(0);
         assertThat(rinexVersionType.getFormatVersion()).isEqualTo("2.10");
         assertThat(rinexVersionType.getFileType()).isEqualTo('O');
@@ -268,6 +268,9 @@ public class RinexFileParserTest {
         assertThat(pgmRunByDate.getTimestamp()).isEqualTo("24-May-21 23:59");
         RinexMarkerNameHeader markerNameHeader = (RinexMarkerNameHeader) file.getHeaders().get(2);
         assertThat(markerNameHeader.getAntennaMarkerName()).isEqualTo("NIST");
+        RinexObserverAgencyHeader observerAgencyHeader = (RinexObserverAgencyHeader) file.getHeaders().get(3);
+        assertThat(observerAgencyHeader.getObserverName()).isEqualTo("NIST");
+        assertThat(observerAgencyHeader.getAgencyName()).isEqualTo("NIST");
     }
 
     private void parse(String path) throws IOException, URISyntaxException {
