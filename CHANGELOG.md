@@ -1,3 +1,12 @@
+# [1.0.0-alpha.2](https://github.com/giulioscattolin/rinex/compare/v1.0.0-alpha.1...v1.0.0-alpha.2) (2021-10-25)
+
+
+### Features
+
+* parse "MARKER NAME" header in observation data file V210 ([0ea8331](https://github.com/giulioscattolin/rinex/commit/0ea83316a84eef4bb2d4ee0b55a09905416bda79))
+* parse "OBSERVER / AGENCY" header in observation data file V210 ([1928ea0](https://github.com/giulioscattolin/rinex/commit/1928ea0c4da9b5755af69432024c2349043df868))
+* parse "RINEX VERSION / TYPE" in observation data file V210 ([9d5c741](https://github.com/giulioscattolin/rinex/commit/9d5c741b1e927145d5cea19668c3b5da1db3e5a3))
+
 # 1.0.0-alpha.1 (2021-10-23)
 
 
