@@ -251,6 +251,26 @@ public class RinexFileParserTest {
     }
 
     @Test
+    public void parseRinexV304MixedNavigationMessageFile() throws URISyntaxException, IOException {
+        parse("REDU00BEL_R_20211201600_01H_MN.rnx");
+
+        assertThat(itsRinexFiles).hasSize(1);
+        RinexFile file = itsRinexFiles.get(0);
+
+        assertThat(file.getHeaders()).hasSize(2);
+        RinexVersionTypeHeader rinexVersionType = (RinexVersionTypeHeader) file.getHeaders().get(0);
+        assertThat(rinexVersionType.getFormatVersion()).isEqualTo("3.04");
+        assertThat(rinexVersionType.getFileType()).isEqualTo('N');
+        assertThat(rinexVersionType.getSatelliteSystem()).isEqualTo('M');
+        RinexPgmRunByDateHeader pgmRunByDate = (RinexPgmRunByDateHeader) file.getHeaders().get(1);
+        assertThat(pgmRunByDate.getProgram()).isEqualTo("sbf2rin-13.8.0x");
+        assertThat(pgmRunByDate.getAgency()).isEqualTo("");
+        assertThat(pgmRunByDate.getTimestamp()).isEqualTo("20210430 170110 UTC");
+
+        assertThat(file.getRecords()).hasSize(28);
+    }
+
+    @Test
     public void parseRinexObservationFileMixedV210() throws URISyntaxException, IOException {
         parse("nist1450.21o");
 

@@ -7,9 +7,9 @@ import static java.lang.Double.isNaN;
 
 public class RinexFileParser {
     private final RinexFileCollector itsFileCollector;
+    RinexNavigationDataBuilder itsNavigationMessageBuilder;
     private LineReader itsLineReader = new VersionType();
     private Supplier<LineReader> itsLineReaderSupplier;
-    RinexNavigationDataBuilder itsNavigationMessageBuilder;
     private MutableRinexFile itsMutableRinexFile = new MutableRinexFile();
 
     public RinexFileParser(RinexFileCollector fileCollector) {
@@ -79,8 +79,25 @@ public class RinexFileParser {
                                             (ignored) -> new RinexGpsNavigationDataBuilderV302(),
                                             () -> new BroadcastOrbit(new BroadcastOrbitParameterReaderV3()));
                                     return;
+                                case 'M':
+                                    itsLineReader = new NavigationHeader();
+                                    itsLineReaderSupplier = () ->
+                                        new SvEpochSvClk(
+                                            new SvEpochSvClkReaderV3(),
+                                            this::selectEpochReaderV3,
+                                            () -> new BroadcastOrbit(new BroadcastOrbitParameterReaderV3()));
+                                    return;
                             }
                     }
+            }
+        }
+
+        private RinexNavigationDataBuilder selectEpochReaderV3(char satelliteSystem) {
+            switch (satelliteSystem) {
+                case 'G':
+                    return new RinexGpsNavigationDataBuilderV302();
+                default:
+                    return null;
             }
         }
 
@@ -172,6 +189,8 @@ public class RinexFileParser {
         private void whichSatelliteSystem() {
             char satelliteSystem = itsSvEpochSvClkReader.getSatelliteSystem(itsLine);
             itsNavigationMessageBuilder = itsNavigationMessageBuilderSupplier.apply(satelliteSystem);
+            if (itsNavigationMessageBuilder == null)
+                return;
             itsLineReader = itsBroadcastOrbitReaderSupplier.get();
             findPrn();
         }
