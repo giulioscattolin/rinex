@@ -74,6 +74,14 @@ public class RinexFileParserTest {
         assertThat(sampleRinexGpsNavigationData.getIodc()).isEqualTo((int) .000000000000E+00);
         assertThat(sampleRinexGpsNavigationData.getTransmissionTimeOfMessage()).isEqualTo((int) .410399000000E+06);
         assertThat(sampleRinexGpsNavigationData.hasFitIntervalInHours()).isFalse();
+
+        // Ensure every field of time of clock get parsed correctly
+        sampleRinexGpsNavigationData = (RinexGpsNavigationData) file.getRecords().get(4);
+        assertThat(sampleRinexGpsNavigationData.getPrn()).isEqualTo(1);
+        assertThat(sampleRinexGpsNavigationData.getToc()).isEqualTo(LocalDateTime.of(1999, 12, 30, 15, 59, 44));
+        assertThat(sampleRinexGpsNavigationData.getSvClockBias()).isEqualTo(.111320987344E-03);
+        assertThat(sampleRinexGpsNavigationData.getSvClockDrift()).isEqualTo(.136424205266E-11);
+        assertThat(sampleRinexGpsNavigationData.getSvClockDriftRate()).isEqualTo(.000000000000E+00);
     }
 
     @Test
