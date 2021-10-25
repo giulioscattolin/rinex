@@ -48,15 +48,18 @@ public class RinexFileParser {
                             return;
                     }
                 case "2.10":
-                    addVersionTypeHeader(version, fileType);
                     switch (fileType) {
                         case 'N':
+                            addVersionTypeHeader(version, fileType);
                             itsLineReader = new NavigationHeader();
                             itsLineReaderSupplier = () ->
                                 new SvEpochSvClk(
                                     new SvEpochSvClkReaderV2('G'),
                                     (ignored) -> new RinexGpsNavigationDataBuilderV210(),
                                     () -> new BroadcastOrbit(new BroadcastOrbitParameterReaderV2()));
+                            return;
+                        case 'O':
+                            addVersionTypeHeader(version, fileType, satelliteSystem);
                             return;
                     }
                 case "3.02":

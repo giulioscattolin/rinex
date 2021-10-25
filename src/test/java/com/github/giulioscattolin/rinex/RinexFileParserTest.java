@@ -250,6 +250,20 @@ public class RinexFileParserTest {
         assertThat(file.getRecords()).hasSize(209);
     }
 
+    @Test
+    public void parseRinexObservationFileMixedV210() throws URISyntaxException, IOException {
+        parse("nist1450.21o");
+
+        assertThat(itsRinexFiles).hasSize(1);
+        RinexFile file = itsRinexFiles.get(0);
+
+        assertThat(file.getHeaders()).hasSize(1);
+        RinexVersionTypeHeader rinexVersionType = (RinexVersionTypeHeader) file.getHeaders().get(0);
+        assertThat(rinexVersionType.getFormatVersion()).isEqualTo("2.10");
+        assertThat(rinexVersionType.getFileType()).isEqualTo('O');
+        assertThat(rinexVersionType.getSatelliteSystem()).isEqualTo('M');
+    }
+
     private void parse(String path) throws IOException, URISyntaxException {
         try (BufferedReader reader = openBufferedReader(path)) {
             String line;
