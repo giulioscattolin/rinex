@@ -1,3 +1,10 @@
+# [1.0.0-alpha.5](https://github.com/giulioscattolin/rinex/compare/v1.0.0-alpha.4...v1.0.0-alpha.5) (2021-10-26)
+
+
+### Features
+
+* read GPS navigation messages from RINEX V3.02 files ([d84b28f](https://github.com/giulioscattolin/rinex/commit/d84b28f2d3f055abe6cabbe108129ebdaf48786b))
+
 # [1.0.0-alpha.4](https://github.com/giulioscattolin/rinex/compare/v1.0.0-alpha.3...v1.0.0-alpha.4) (2021-10-26)
 
 
