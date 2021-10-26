@@ -1,3 +1,21 @@
+# [1.0.0-alpha.4](https://github.com/giulioscattolin/rinex/compare/v1.0.0-alpha.3...v1.0.0-alpha.4) (2021-10-26)
+
+
+### Bug Fixes
+
+* parameter was always positive ([d3bbc42](https://github.com/giulioscattolin/rinex/commit/d3bbc4238b9aa7931ad8bbd592937653364925ad))
+
+
+### Features
+
+* add new parser implementation ([9df3fe2](https://github.com/giulioscattolin/rinex/commit/9df3fe2138c95be7b795e6c5d30881b5b9bda24e))
+* generate equals(), hashCode() for RinexVersionTypeHeader and RinexPgmRunByDateHeader ([cb7b98c](https://github.com/giulioscattolin/rinex/commit/cb7b98ceece44fa422808eaf073e138606f32d84))
+
+
+### Reverts
+
+* deprecate current implementation ([5490616](https://github.com/giulioscattolin/rinex/commit/54906165fa5f1128111e966ee434d00d1a6e43c9))
+
 # [1.0.0-alpha.3](https://github.com/giulioscattolin/rinex/compare/v1.0.0-alpha.2...v1.0.0-alpha.3) (2021-10-25)
 
 
