@@ -36,3 +36,40 @@ javadoc {
         links 'https://docs.oracle.com/javase/8/docs/api/'
     }
 }
+
+sourceSets {
+    demo {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
+
+configurations {
+    demoImplementation.extendsFrom implementation
+    demoRuntimeOnly.extendsFrom runtimeOnly
+}
+
+tasks.register('compileSmc') {
+    doLast {
+        projectDir.eachFileRecurse {file ->
+            if (file.name.endsWith('.sm')) {
+                exec {
+                    commandLine = [
+                            "java",
+                            "-jar",
+                            "smc.jar",
+                            "-l", "Java",
+                            "-o", 'src/main/java/com/github/giulioscattolin/rinex',
+                            "-f", "package:com.github.giulioscattolin.rinex",
+                            file.absolutePath
+                    ]
+                }
+            }
+        }
+    }
+}
+
+task(analyzeRinexFile, dependsOn: 'classes', type: JavaExec) {
+    main = 'com.github.giulioscattolin.rinex.demo.AnalyzeRinexFileDemo'
+    classpath = sourceSets.demo.runtimeClasspath
+}

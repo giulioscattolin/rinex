@@ -1,0 +1,12 @@
+FSM: RinexDataBuilderEngine
+Initial: READY
+{
+    READY                   notifyGpsSvEpochSvClk   GPS_BROADCAST_ORBIT_1   readGpsSvEpochSvClk
+    GPS_BROADCAST_ORBIT_1   notifyBroadcastOrbit    GPS_BROADCAST_ORBIT_2   readGpsBroadcastOrbit1
+    GPS_BROADCAST_ORBIT_2   notifyBroadcastOrbit    GPS_BROADCAST_ORBIT_3   readGpsBroadcastOrbit2
+    GPS_BROADCAST_ORBIT_3   notifyBroadcastOrbit    GPS_BROADCAST_ORBIT_4   readGpsBroadcastOrbit3
+    GPS_BROADCAST_ORBIT_4   notifyBroadcastOrbit    GPS_BROADCAST_ORBIT_5   readGpsBroadcastOrbit4
+    GPS_BROADCAST_ORBIT_5   notifyBroadcastOrbit    GPS_BROADCAST_ORBIT_6   readGpsBroadcastOrbit5
+    GPS_BROADCAST_ORBIT_6   notifyBroadcastOrbit    GPS_BROADCAST_ORBIT_7   readGpsBroadcastOrbit6
+    GPS_BROADCAST_ORBIT_7   notifyBroadcastOrbit    READY                   readGpsBroadcastOrbit7
+}

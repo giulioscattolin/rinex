@@ -12,7 +12,15 @@ class Utilities {
         if (isBlank(number))
             return NaN;
         else
+            return toDoubleOrNaN(number);
+    }
+
+    private static double toDoubleOrNaN(String number) {
+        try {
             return parseDouble(number.replace('D', 'E'));
+        } catch (NumberFormatException exception) {
+            return NaN;
+        }
     }
 
     static boolean isBlank(String string) {
