@@ -1,5 +1,6 @@
 package com.github.giulioscattolin.rinex;
 
+import static com.github.giulioscattolin.rinex.RinexTokenizerProvider.TokenizerName.NAVIGATION_FILE_HEADER_V302;
 import static com.github.giulioscattolin.rinex.RinexTokenizerProvider.TokenizerName.NAVIGATION_FILE_HEADER_V304;
 
 public class RinexVersionTypeHeaderTokenizer extends RinexTokenizerTemplate {
@@ -53,6 +54,8 @@ public class RinexVersionTypeHeaderTokenizer extends RinexTokenizerTemplate {
         switch (formatVersion) {
             case "3.04":
                 return trySelectTokenizerForV304(fileType);
+            case "3.02":
+                return trySelectTokenizerForV302(fileType);
         }
         return false;
     }
@@ -61,6 +64,15 @@ public class RinexVersionTypeHeaderTokenizer extends RinexTokenizerTemplate {
         switch (fileType) {
             case 'N':
                 selectTokenizer(NAVIGATION_FILE_HEADER_V304);
+                return true;
+        }
+        return false;
+    }
+
+    private boolean trySelectTokenizerForV302(char fileType) {
+        switch (fileType) {
+            case 'N':
+                selectTokenizer(NAVIGATION_FILE_HEADER_V302);
                 return true;
         }
         return false;

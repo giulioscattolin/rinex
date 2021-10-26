@@ -45,6 +45,15 @@ public class RinexParserTest {
         assertThat(itsSemanticErrors).hasSize(0);
     }
 
+    @Test
+    public void parseRinexV302GpsNavigationFile() {
+        read("KOUR00GUF_R_20153620000_01D_GN.rnx");
+
+        assertThat(itsData).hasSize(276);
+        assertThat(itsTokenizerErrors).hasSize(4);
+        assertThat(itsSemanticErrors).hasSize(0);
+    }
+
     private void read(String path) {
         try (BufferedReader reader = toBufferedReader(path)) {
             String line;

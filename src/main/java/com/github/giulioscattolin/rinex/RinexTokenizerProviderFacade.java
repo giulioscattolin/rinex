@@ -16,10 +16,16 @@ public class RinexTokenizerProviderFacade implements RinexTokenizerProvider {
         switch (name) {
             case RINEX_VERSION_TYPE:
                 return new RinexVersionTypeHeaderTokenizer(itsTokenCollector, this, itsTokenizerDriver);
+            case NAVIGATION_FILE_HEADER_V302:
+                return new NavigationMessageFileHeaderV302Tokenizer(itsTokenCollector, this, itsTokenizerDriver);
             case NAVIGATION_FILE_HEADER_V304:
                 return new NavigationMessageFileHeaderV304Tokenizer(itsTokenCollector, this, itsTokenizerDriver);
+            case SV_EPOCH_SV_CLK_V302:
+                return new SvEpochSvClockRecordV302Tokenizer(itsTokenCollector, this, itsTokenizerDriver);
             case SV_EPOCH_SV_CLK_V304:
                 return new SvEpochSvClockRecordV304Tokenizer(itsTokenCollector, this, itsTokenizerDriver);
+            case BROADCAST_ORBIT_V302:
+                return new BroadcastOrbitRecordV302Tokenizer(itsTokenCollector, this, itsTokenizerDriver);
             case BROADCAST_ORBIT_V304:
                 return new BroadcastOrbitRecordV304Tokenizer(itsTokenCollector, this, itsTokenizerDriver);
         }
